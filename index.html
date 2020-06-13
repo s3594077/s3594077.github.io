@@ -11,30 +11,61 @@
         }
 
         h1 {
-            position: absolute;
+            position: relative;
+            box-sizing: border-box;
+            width: 90%;
             color: #ffffff;
             font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
             top: 20px;
-            left: 10%;
+            left: 5%;
             font-size: 1.5em;
         }
 
+        .row{
+            width: 100%;
+            box-sizing: border-box;
+            padding: 5px;
+            height: auto;
+            position: relative;
+        }
+
+        #userInput {
+            position: relative;
+            width: 90%;
+            margin-top: 40px;
+            ;
+            color: #ffffff;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+            left: 5%;
+        }
+
         #gridCanvas {
-            position: absolute;
-            width: 80%;
+            position: relative;
+            margin-top: 10px;
+            width: 90%;
             height: auto;
             background-color: #9e9e9e;
             -webkit-box-shadow: inset 0px 0px 5px 2px rgba(0, 0, 0, 0.4);
             -moz-box-shadow: inset 0px 0px 5px 2px rgba(0, 0, 0, 0.4);
             box-shadow: inset 0px 0px 5px 2px rgba(0, 0, 0, 0.4);
-            left: 10%;
-            top: 100px;
+            left: 5%;
         }
     </style>
 </head>
 
 <body>
     <h1>The Game Of Life:</h1>
+    <div id="userInput">
+        <div class="row">
+            <p>Time per Cycle (in ms):</p>
+            <input id="speed" type="range" min="1" max="500" value="30" onchange="updateSpeed(this.value);" />
+        </div>
+        <div class="row">
+            <p>Spontaneous Reproduction:</p>
+            <input id="reproduce" type="range" min="0" max="100" value="0" onchange="updateRepro(this.value);" />
+        </div>
+    </div>
     <canvas id="gridCanvas"></canvas>
     <script type="text/javascript">
         function createArray(rows) {
@@ -48,7 +79,7 @@
         function fillRandom(gridWidth, gridHeight) {
             for (var j = 0; j < gridHeight; j++) {
                 for (var k = 0; k < gridWidth; k++) {
-                  
+
                     var rawRandom = Math.random();
                     var intRandom = (rawRandom * 2);
                     var binaryRandom = Math.floor(intRandom);
@@ -102,7 +133,7 @@
                                 mirrorGrid[j][k] = 0;
                                 break;
                             case 1:
-                                if (Math.random() >= 0.05) {
+                                if (Math.random() >= reproRate) {
                                     mirrorGrid[j][k] = 0;
                                 } else {
                                     mirrorGrid[j][k] = 1;
@@ -133,6 +164,16 @@
             }
         }
 
+        function updateSpeed(inputSpeed) {
+            speed = inputSpeed;
+            clearInterval(timer);
+            timer = setInterval(tick, speed);
+        }
+
+        function updateRepro(inputRepro) {
+            reproRate = inputRepro / 100;
+        }
+
         function tick() {
             //console.log("trying to draw grid");
             drawGrid(gridWidth, gridHeight);
@@ -146,6 +187,10 @@
         var gridHeight = 200;
         var grid = createArray(gridWidth);
         var mirrorGrid = createArray(gridWidth);
+        var speed = 30;
+        var timer = setInterval(tick, speed);
+        var reproRate = 0;
+
 
         /*
         canvas.addEventListener('click', function (evt) {
@@ -159,7 +204,6 @@
         }, false);*/
 
         fillRandom(gridWidth, gridHeight);
-        setInterval(tick, 30);
 
 
     </script>
