@@ -48,6 +48,7 @@
         function fillRandom(gridWidth, gridHeight) {
             for (var j = 0; j < gridHeight; j++) {
                 for (var k = 0; k < gridWidth; k++) {
+                  
                     var rawRandom = Math.random();
                     var intRandom = (rawRandom * 2);
                     var binaryRandom = Math.floor(intRandom);
@@ -97,12 +98,11 @@
                         }
                     } else if (grid[j][k] === 1) {
                         switch (totalCells) {
-                            //case 0:
                             case 0:
                                 mirrorGrid[j][k] = 0;
                                 break;
                             case 1:
-                                if (Math.random() >= 0.1){
+                                if (Math.random() >= 0.05) {
                                     mirrorGrid[j][k] = 0;
                                 } else {
                                     mirrorGrid[j][k] = 1;
@@ -112,15 +112,14 @@
                             case 3:
                                 mirrorGrid[j][k] = 1;
                                 break;
-                            
                             case 4:
                             case 5:
                             case 6:
                             case 7:
                             case 8:
-                            mirrorGrid[j][k] = 0;
-                            break;
-                            
+                                mirrorGrid[j][k] = 0;
+                                break;
+
                             default: mirrorGrid[j][k] = 0;
                         }
                     }
@@ -134,20 +133,33 @@
             }
         }
 
+        function tick() {
+            //console.log("trying to draw grid");
+            drawGrid(gridWidth, gridHeight);
+            updateGrid(gridWidth, gridHeight);
+            //requestAnimationFrame(tick);
+        }
+
+        var canvas = document.getElementById("gridCanvas");
+        var context = canvas.getContext("2d");
         var gridWidth = 200;
         var gridHeight = 200;
         var grid = createArray(gridWidth);
         var mirrorGrid = createArray(gridWidth);
 
-        function tick() {
-            drawGrid(gridWidth, gridHeight);
-            updateGrid(gridWidth, gridHeight);
-            requestAnimationFrame(tick);
-        }
+        /*
+        canvas.addEventListener('click', function (evt) {
+            var rect = canvas.getBoundingClientRect(),
+                scaleX = canvas.width / rect.width,
+                scaleY = canvas.height / rect.height;
+            var x = Math.floor((evt.clientX - rect.left) * scaleX);
+            var y = Math.floor((evt.clientY - rect.top) * scaleY);
+            grid[x][y] = 1;
+
+        }, false);*/
 
         fillRandom(gridWidth, gridHeight);
-
-        tick();
+        setInterval(tick, 30);
 
 
     </script>
