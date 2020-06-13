@@ -14,20 +14,21 @@
             position: absolute;
             color: #ffffff;
             font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-            top: 100px;
-            left: calc(50% - 400px);
+            top: 20px;
+            left: 10%;
+            font-size: 1.5em;
         }
 
         #gridCanvas {
             position: absolute;
-            width: 800px;
+            width: 80%;
             height: auto;
             background-color: #9e9e9e;
-            -webkit-box-shadow: inset 0px 0px 14px 5px rgba(0, 0, 0, 1);
-            -moz-box-shadow: inset 0px 0px 14px 5px rgba(0, 0, 0, 1);
-            box-shadow: inset 0px 0px 14px 5px rgba(0, 0, 0, 1);
-            left: calc(50% - 400px);
-            top: 200px;
+            -webkit-box-shadow: inset 0px 0px 5px 2px rgba(0, 0, 0, 0.4);
+            -moz-box-shadow: inset 0px 0px 5px 2px rgba(0, 0, 0, 0.4);
+            box-shadow: inset 0px 0px 5px 2px rgba(0, 0, 0, 0.4);
+            left: 10%;
+            top: 100px;
         }
     </style>
 </head>
@@ -111,7 +112,7 @@
                             case 3:
                                 mirrorGrid[j][k] = 1;
                                 break;
-                            /*
+                            
                             case 4:
                             case 5:
                             case 6:
@@ -119,7 +120,7 @@
                             case 8:
                             mirrorGrid[j][k] = 0;
                             break;
-                            */
+                            
                             default: mirrorGrid[j][k] = 0;
                         }
                     }
