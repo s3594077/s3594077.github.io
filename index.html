@@ -102,11 +102,26 @@
             var canvas = document.getElementById("gridCanvas");
             var context = canvas.getContext("2d");
             context.clearRect(0, 0, 800, 800);
-            for (var j = 0; j < gridHeight; j++) {
-                for (var k = 0; k < gridWidth; k++) {
+            for (var j = 1; j < gridHeight-1; j++) {
+                for (var k = 1; k < gridWidth-1; k++) {
+                    var totalCells = 0;
+                    totalCells += grid[j - 1][k - 1];
+                    totalCells += grid[j - 1][k];
+                    totalCells += grid[j - 1][k + 1];
+                    totalCells += grid[j][k - 1];
+                    totalCells += grid[j][k + 1];
+                    totalCells += grid[j + 1][k - 1];
+                    totalCells += grid[j + 1][k];
+                    totalCells += grid[j + 1][k + 1];
+
                     if (grid[j][k] === 1) {
-                        context.fillStyle = "#2D882D";
-                        context.fillRect(j * 2, k * 2, 1, 1);
+                        if (totalCells > 3) {
+                            context.fillStyle = "#" + Math.floor(Math.random() * 16777215).toString(16);
+                            context.fillRect(j * 2, k * 2, 1, 1);
+                        } else {
+                            context.fillStyle = "#2D882D";
+                            context.fillRect(j * 2, k * 2, 1, 1);
+                        }
                     }
                 }
             }
